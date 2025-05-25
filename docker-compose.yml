@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:17-bookworm
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "testingsecret"
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    restart: always
+    develop:
+      watch:
+        - path: ./backend/backend
+          action: sync
+          target: app
+        - path: ./backend/pyproject.toml
+          action: rebuild
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
