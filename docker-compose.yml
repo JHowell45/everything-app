@@ -23,15 +23,8 @@ services:
     env_file:
       - .env
     command: python backend/manage.py runserver 0.0.0.0:8000
-    develop:
-      watch:
-        - path: ./backend/backend
-          action: sync
-          target: app
-        - path: ./backend/pyproject.toml
-          action: rebuild
-        - path: ./.env
-          action: rebuild
+    volumes:
+      - ./backend/backend:/app/backend
     ports:
       - "8000:8000"
     depends_on:
