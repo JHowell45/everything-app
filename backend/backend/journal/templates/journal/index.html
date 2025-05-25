@@ -5,6 +5,14 @@
     <title>Journal</title>
 </head>
 <body>
-
+    {% if journal_entries %}
+    <ul>
+        {% for entry in journal_entries %}
+            <li><a href="{% url 'detail' entry.id %}">{{ entry.entry_text }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>No entries yet!</p>
+    {% endif %}
 </body>
 </html>

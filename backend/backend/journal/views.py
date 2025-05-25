@@ -4,8 +4,8 @@ from .models import JournalEntry
 
 # Create your views here.
 class IndexView(generic.ListView):
-    model = JournalEntry
     template_name = "journal/index.html"
+    context_object_name = "journal_entries"
 
     def get_queryset(self):
         return JournalEntry.objects.all()
