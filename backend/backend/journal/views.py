@@ -9,3 +9,6 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         return JournalEntry.objects.all()
+
+def new_entry(request):
+    pass

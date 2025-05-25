@@ -5,14 +5,24 @@
     <title>Journal</title>
 </head>
 <body>
-    {% if journal_entries %}
-    <ul>
-        {% for entry in journal_entries %}
-            <li><a href="{% url 'detail' entry.id %}">{{ entry.entry_text }}</a></li>
-        {% endfor %}
-    </ul>
-    {% else %}
-        <p>No entries yet!</p>
-    {% endif %}
+    <div>
+        <form action="{% url 'journal:new_entry' entry.id %}" method="post">
+            {% csrf_token %}
+            <fieldset>
+                <legend><h1>Enter a Journal entry for the day!</h1></legend>
+            </fieldset>
+        </form>
+    </div>
+    <div>
+        {% if journal_entries %}
+        <ul>
+            {% for entry in journal_entries %}
+                <li><a href="{% url 'detail' entry.id %}">{{ entry.entry_text }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p>No entries yet!</p>
+        {% endif %}
+    </div>
 </body>
 </html>
