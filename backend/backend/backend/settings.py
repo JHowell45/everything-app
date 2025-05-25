@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-
+from os import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ea0l^%fl=frjtqzxn2*0$)wx(n(n#571(7lpab-w!&a$3vmb-*'
+SECRET_KEY = environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = environ.get('DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = environ.get("ALLOWED_HOSTS").split(",")
 
 
 # Application definition
@@ -74,8 +74,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": environ.get("DATABASE_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": environ.get("DATABASE_NAME", BASE_DIR / "db.sqlite3"),
+        "USER": environ.get("DATABASE_USER", "user"),
+        "PASSWORD": environ.get("DATABASE_PASSWORD", "password"),
+        "HOST": environ.get("DATABASE_HOST", "localhost"),
+        "PORT": environ.get("DATABASE_PORT", "5432"),
     }
 }
 
