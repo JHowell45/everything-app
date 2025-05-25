@@ -30,6 +30,8 @@ services:
           target: app
         - path: ./backend/pyproject.toml
           action: rebuild
+        - path: ./.env
+          action: rebuild
     ports:
       - "8000:8000"
     depends_on:
