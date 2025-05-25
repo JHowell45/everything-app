@@ -4,6 +4,8 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: "testingsecret"
+    ports:
+      - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
   backend:
@@ -11,6 +13,7 @@ services:
       context: backend
       dockerfile: Dockerfile
     restart: always
+    command: python backend/manage.py runserver 0.0.0.0:8000
     develop:
       watch:
         - path: ./backend/backend
