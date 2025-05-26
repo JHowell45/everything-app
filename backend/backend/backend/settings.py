@@ -32,6 +32,7 @@ ALLOWED_HOSTS = environ.get("ALLOWED_HOSTS", "").split(",")
 
 INSTALLED_APPS = [
     'journal.apps.JournalConfig',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
