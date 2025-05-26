@@ -12,11 +12,13 @@
             <input id="body_weight" type="number" step="0.01" name="body_weight" value="{{ body_weight }}">
             <label for="entry">Enter new rep count: </label>
             <input id="amount" type="number" name="amount" value="{{ amount }}">
+            <label for="entry">Whether they were on the knees or not: </label>
+            <input id="on_knees" type="checkbox" name="on_knees" value="{{ on_knees }}">
             <input type="submit" value="OK">
         </form>
     </div>
     <div>
-        {% if journal_entries %}
+        {% if pushups %}
             <ul>
             {% for data in pushups %}
             <li>Weight: {{ data.body_weight }} | Amount: {{ data.amount }} | Top Weight: {{ data.calculate_top_weight }} | Bottom Weight: {{ data.calculate_bottom_weight }} | Top Volume: {{ data.calculate_top_volume }} | Bottom Volume: {{ data.calculate_bottom_volume }}</li>
