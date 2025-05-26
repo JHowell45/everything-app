@@ -1,6 +1,13 @@
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views import generic
 from .models import JournalEntry
+import logging
+from django.shortcuts import redirect
+from django.utils import timezone
+from .forms import EntryForm
+
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 class IndexView(generic.ListView):
@@ -11,4 +18,12 @@ class IndexView(generic.ListView):
         return JournalEntry.objects.all()
 
 def new_entry(request):
-    pass
+    if request.method == "POST":
+        form = EntryForm(request.POST)
+        if form.is_valid():
+            JournalEntry.objects.create(entry_text=form.cleaned_data.get("entry"), entry_date=timezone.now())
+            return redirect("journal:index")
+        else:
+            return HttpResponse("Failed!")
+    else:
+        return HttpResponse("Not POST!")

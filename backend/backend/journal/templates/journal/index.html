@@ -6,18 +6,23 @@
 </head>
 <body>
     <div>
-        <form action="{% url 'journal:new_entry' entry.id %}" method="post">
+        <form action="{% url 'journal:new_entry' %}" method="post">
             {% csrf_token %}
-            <fieldset>
-                <legend><h1>Enter a Journal entry for the day!</h1></legend>
-            </fieldset>
+            <label for="entry">Today's Entry: </label>
+            <input id="entry" type="text" name="entry" value="{{ entry_text }}">
+            <input type="submit" value="OK">
+{#            <fieldset>#}
+{#                <legend><h1>Enter a Journal entry for the day!</h1></legend>#}
+{#                <input type="text" id="entry" name="entry" required />#}
+{#            </fieldset>#}
         </form>
     </div>
     <div>
         {% if journal_entries %}
         <ul>
             {% for entry in journal_entries %}
-                <li><a href="{% url 'detail' entry.id %}">{{ entry.entry_text }}</a></li>
+{#                <li><a href="{% url 'detail' entry.id %}">{{ entry.entry_text }}</a></li>#}
+                <li>{{ entry.entry_text }}</li>
             {% endfor %}
         </ul>
         {% else %}
