@@ -6,6 +6,14 @@
 </head>
 <body>
     <div>
+        <form action="{% url 'pushups:new_entry' %}" method="post">
+            {% csrf_token %}
+            <label for="entry">Today's Entry: </label>
+            <input id="entry" type="text" name="entry" value="{{ entry_text }}">
+            <input type="submit" value="OK">
+        </form>
+    </div>
+    <div>
         {% if journal_entries %}
             <ul>
             {% for data in pushups %}
