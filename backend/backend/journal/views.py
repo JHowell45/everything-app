@@ -21,7 +21,13 @@ def new_entry(request):
     if request.method == "POST":
         form = EntryForm(request.POST)
         if form.is_valid():
-            JournalEntry.objects.create(entry_text=form.cleaned_data.get("entry"), entry_date=timezone.now())
+            entry_date = timezone.now().date()
+            entry_text: str = form.cleaned_data.get("entry")
+            if entry := JournalEntry.objects.filter(entry_date=entry_date).first():
+                entry.entry_text += f"\n{entry_text}"
+                entry.save()
+            else:
+                JournalEntry.objects.create(entry_text=entry_text, entry_date = timezone.now())
             return redirect("journal:index")
         else:
             return HttpResponse("Failed!")
