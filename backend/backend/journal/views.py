@@ -14,7 +14,7 @@ class JournalEntryViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows viewing, creating, and editing journal entries
     """
-    queryset = JournalEntry.objects.all()
+    queryset = JournalEntry.objects.all().order_by('entry_date')
     serializer_class = JournalEntrySerialiser
     permission_classes = [permissions.IsAuthenticated]
 
