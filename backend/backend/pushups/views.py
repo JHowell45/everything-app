@@ -10,4 +10,4 @@ class IndexView(generic.ListView):
     context_object_name = "pushups"
 
     def get_queryset(self):
-        return Pushup.objects.all()
+        return Pushup.objects.all().order_by("set_finished")

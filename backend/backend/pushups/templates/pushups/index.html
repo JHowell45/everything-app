@@ -5,6 +5,16 @@
     <title>Title</title>
 </head>
 <body>
-
+    <div>
+        {% if journal_entries %}
+            <ul>
+            {% for data in pushups %}
+            <li>Weight: {{ data.body_weight }} | Amount: {{ data.amount }} | Top Weight: {{ data.calculate_top_weight }} | Bottom Weight: {{ data.calculate_bottom_weight }} | Top Volume: {{ data.calculate_top_volume }} | Bottom Volume: {{ data.calculate_bottom_volume }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No pushup data yet!</p>
+        {% endif %}
+    </div>
 </body>
 </html>
