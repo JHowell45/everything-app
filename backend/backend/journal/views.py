@@ -6,10 +6,19 @@ import logging
 from django.shortcuts import redirect
 from django.utils import timezone
 from .forms import EntryForm
-
+from rest_framework import permissions, viewsets
 logger = logging.getLogger(__name__)
-
+from .serializers import JournalEntrySerialiser
 # Create your views here.
+class JournalEntryViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows viewing, creating, and editing journal entries
+    """
+    queryset = JournalEntry.objects.all()
+    serializer_class = JournalEntrySerialiser
+    permission_classes = [permissions.IsAuthenticated]
+
+
 class IndexView(generic.ListView):
     template_name = "journal/index.html"
     context_object_name = "journal_entries"
